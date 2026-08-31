@@ -1,0 +1,457 @@
+import json
+from pathlib import Path
+from typing import Dict, List, Any
+import copy
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
+from llms import LLMClient
+from prompts import base_system_prompt
+from skills import SkillRegistry
+from tools import Tool, SkillTool, BashTool, ReadFileTool
+
+
+
+# ---------------------------------------------------------------------------
+# ANSI 颜色
+# ---------------------------------------------------------------------------
+CYAN = "\033[36m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+RED = "\033[31m"
+DIM = "\033[2m"
+RESET = "\033[0m"
+BOLD = "\033[1m"
+
+working_directory: Path = Path.cwd()
+
+inputs = json.load(open(Path(__file__).parent / "data/datasets.json", "r", encoding="utf-8"))
+
+# 线程安全的日志记录
+logger_lock = Lock()
+logger = []
+
+
+def recall_score(true_list, pred_list):
+    # 转为集合，去重并求交集
+    true_set = set(true_list)
+    pred_set = set(pred_list)
+
+    if len(true_set) == 0:
+        # 如果没有真实正例，通常召回率无定义，此处返回 0.0 并提示
+        print("警告：真实列表为空，召回率定义为 0.0")
+        return 0.0
+
+    hit_count = len(true_set & pred_set)  # 交集大小
+    recall = hit_count / len(true_set)
+    return recall
+
+
+def colored_prompt() -> str:
+    return f"{CYAN}{BOLD}You > {RESET}"
+
+
+def print_assistant(text: str) -> None:
+    print(f"\n{GREEN}{BOLD}AI续写:{RESET} {text}\n")
+
+
+def print_tool(name: str, detail: str) -> None:
+    """打印工具调用信息."""
+    print(f" {DIM}[tool: {name}] {detail}{RESET}")
+
+
+def print_info(text: str) -> None:
+    print(f"{DIM}{text}{RESET}")
+
+
+class AgentLoop:
+    """
+    Agent Loop - 模拟 Claude Code 的核心交互循环
+    实现渐进披露的三级加载机制
+    """
+
+    def __init__(self, skill_registry: SkillRegistry):
+        self.skill_registry = skill_registry
+        self.tools: Dict[str, Tool] = {}
+        self.conversation_history: List[Dict] = []
+
+        # 注册工具
+        self._register_tool(SkillTool(skill_registry))
+        self._register_tool(BashTool())
+        self._register_tool(ReadFileTool())
+
+        # 初始化LLM
+        self.llm_client = LLMClient()
+
+        self._reset_agent_context()
+
+    def _register_tool(self, tool: Tool):
+        self.tools[tool.name] = tool
+
+    def _build_system_prompt(self) -> str:
+        """构建系统提示词（仅包含 Level 1 披露）"""
+        return base_system_prompt.format(skills_registry=self.skill_registry.get_registry_prompt())
+
+    def _get_tool_schema(self):
+        return [t.to_schema() for t in self.tools.values()]
+
+    def _reset_agent_context(self):
+        self.agent_context: Dict[str, Any] = {
+            "working_directory": working_directory
+        }
+
+    def _in_skill_context(self):
+        return "skill_context" in self.agent_context
+
+    def _set_skill_context(self, skill_context):
+        self.agent_context["skill_context"] = skill_context
+
+    def _model_inference(
+            self,
+            messages: List[Dict]
+    ) -> dict:
+        system_prompt = self._build_system_prompt()
+        tool_schema = self._get_tool_schema()
+        response = self.llm_client.inference(
+            messages=messages,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema)
+        return response
+
+    def _execute_tools(
+            self,
+            tool_calls: list[dict]
+    ) -> list[dict]:
+        tool_messages: list[dict] = []
+        for tool_call in tool_calls:
+            func_name = tool_call["function_name"]
+            arguments = tool_call["arguments"]
+            tool_call_id = tool_call["tool_call_id"]
+
+            if func_name.upper() == "SKILL":
+                print_info("\n" + "=" * 80)
+                print_info("Step 2: 模型基于用户输入加载匹配到的技能（Skill）【Level 2】")
+                print_info("=" * 80)
+
+                skill_tool = self.tools["Skill"]
+                tool_result = skill_tool.execute(**arguments)
+                exec_status = tool_result["status"]
+
+                tool_messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call_id,
+                    "content": str(tool_result)
+                })
+
+                if exec_status == "succeed":
+                    # 保存上下文（Base Path 是关键）
+                    skill_name = tool_result["command_name"]
+                    base_path = tool_result["base_path"]
+                    skill_content = tool_result["content"]
+
+                    self._set_skill_context({
+                        "skill_name": skill_name,
+                        "base_path": base_path,
+                        "skill_content": skill_content
+                    })
+
+                    print_info(f"调用SKILL:")
+                    print_info(f"技能名称: {skill_name}")
+                    print_info(f"Base Path: {base_path}")
+                    print_info(f"内容长度: {len(skill_content)} 字符")
+                    print_info("\n【SKILL.md 内容（已注入上下文）】")
+                    print_info(skill_content[:500] + "..." if len(skill_content) > 500 else skill_content)
+
+            else:
+                # 执行工具
+                if self._in_skill_context():
+                    print_info("\n" + "=" * 80)
+                    print_info(f"Step 3: 执行{self.agent_context['skill_context']['skill_name']}工具的资源或者脚本【Level 3】")
+                    print_info("=" * 80)
+
+                print_info(f"调用工具: {func_name}")
+                print_info(f"参数: {arguments}")
+                print_info(f"调用ID: {tool_call_id}")
+                tool = self.tools[func_name]
+                tool.set_context(self.agent_context)
+                tool_result = tool.execute(**arguments)
+
+                print_info(f"工具结果: {tool_result}")
+
+                tool_messages.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call_id,
+                    "content": str(tool_result)
+                })
+        return tool_messages
+
+    def run(self):
+        """运行 Agent Loop，展示渐进披露全过程"""
+
+        print_info("\n" + "=" * 80)
+        print_info("Step 1: 启动加载SKILL元数据【Level 1】")
+        print_info("=" * 80)
+        system_prompt = self._build_system_prompt()
+        print_info(f"system_prompt:\n{system_prompt}")
+        print_info(f"\n[Token 消耗: 约 {len(system_prompt)} 字符（仅元数据）]")
+
+        messages: list[dict] = []
+        logger = []
+
+        for input in inputs:
+            # --- Step 1: 获取用户输入 ---
+            try:
+                # 输入"用户请求代码审查"观察效果
+                user_input = input["input"]
+            except (KeyboardInterrupt, EOFError):
+                print(f"\n{DIM}再见.{RESET}")
+                break
+
+            if not user_input:
+                continue
+
+            if user_input.lower() in ("quit", "exit", "buy"):
+                print(f"{DIM}再见.{RESET}")
+                break
+
+            self._reset_agent_context()
+
+            print_info("=" * 80)
+            print_info(f"{GREEN}{BOLD}上文：{RESET}{input['article_top']}")
+            print_info(f"{GREEN}{BOLD}用户输入: {RESET}{user_input}")
+            print_info(f"{GREEN}{BOLD}下文：{RESET}{input['article_bottom']}")
+            print_info("=" * 80)
+
+            messages.append({"role": "user", "content": "这是用户的上文：" + input['article_top']})
+            messages.append({"role": "assistant", "content": "好的，已记录"})
+            messages.append({"role": "user", "content": user_input})
+
+            # 用于存储本次输入调用的所有 skill 名称
+            current_turn_skills: List[str] = []
+
+            # --- Agent 内循环 ---
+            # 模型可能连续调用多个工具才最终给出文本回复.
+            # 用 while True 循环, 直到 stop_reason != "tool_calls"
+            while True:
+
+                llm_response = self._model_inference(messages)
+
+                # 以列表格式打印调用的 Skill 名称，并记录到当前轮次
+                if llm_response["status"] == "succeed" and llm_response.get("stop_reason") == "tool_calls":
+                    if "tools" in llm_response:
+                        for tool_call in llm_response["tools"]:
+                            if tool_call["function_name"].upper() == "SKILL":
+                                skill_name = tool_call["arguments"].get("command", "")
+                                if skill_name:
+                                    current_turn_skills.append(skill_name)
+
+                # print("=" * 80 + ">")
+                # try:
+                #     print_info(f"LLM result:\n{json.dumps(llm_response, ensure_ascii=False, indent=4)}")
+                # except:
+                #     print_info(f"LLM result: {llm_response}")
+                # print("<" + "=" * 80)
+
+                status = llm_response["status"]
+                if status == "failed":
+                    error_message = llm_response["error_message"]
+                    print_info(f"\n{YELLOW}API Error: {error_message}{RESET}\n")
+                    # 出错时回滚本轮所有消息到最近的 user 消息
+                    while messages and messages[-1]["role"] != "user":
+                        messages.pop()
+                    if messages:
+                        messages.pop()
+                    break
+
+                # if status == "succeed":
+                content = llm_response["content"]
+                messages.append({"role": "assistant", "content": content})
+
+                stop_reason = llm_response["stop_reason"]
+                if stop_reason == "tool_calls":
+                    tool_calls = llm_response["tools"]
+                    tool_messages = self._execute_tools(tool_calls)
+                    messages.extend(tool_messages)
+                    # 继续内循环 -- 模型会看到工具结果并决定下一步
+                    continue
+
+                elif stop_reason == "stop":
+                    if content:
+                        print_assistant(content)
+
+                    # 跳出内循环, 等待下一次用户输入
+                    break
+                else:
+                    print_info(f"[stop_reason={stop_reason}]")
+                    if content:
+                        print_assistant(content)
+
+                    break
+
+            # 本次输入处理完成，打印汇总
+            if current_turn_skills:
+                print(f"\n{GREEN}{BOLD}✅ 本次输入共调用 {len(current_turn_skills)} 个 Skill:{RESET}")
+                for skill_name in current_turn_skills:
+                    print(f"   • {skill_name}")
+            else:
+                print(f"\n{DIM}ℹ️  本次输入未调用任何 Skill{RESET}")
+
+            messages_copy = copy.deepcopy(messages)
+            logger.append({"input": user_input,
+                           "title": input['title'],
+                           "predict_skills": current_turn_skills,
+                           "article_top": input['article_top'],
+                           "article_bottom": input['article_bottom'],
+                           "predict": content
+                           })
+            messages.clear()
+
+
+        # 保存日志到JSON文件
+        log_file = working_directory / f"data/agent_log.json"
+        try:
+            with open(log_file, 'w', encoding='utf-8') as f:
+                json.dump(logger, f, ensure_ascii=False, indent=2)
+            print_info(f"\n✅ 日志已保存到: {log_file}")
+            print_info(f"   共保存 {len(logger)} 条记录")
+        except Exception as e:
+            print_info(f"\n❌ 保存日志失败: {e}")
+
+    def process_single_input(self, input_data: dict) -> dict:
+        """处理单个输入数据，返回结果"""
+        messages = []
+        current_turn_skills = []
+
+        try:
+            user_input = input_data["input"]
+
+            print_info("=" * 80)
+            print_info(f"{GREEN}{BOLD}上文：{RESET}{input_data['article_top'][:100]}...")
+            print_info(f"{GREEN}{BOLD}用户输入: {RESET}{user_input}")
+            print_info(f"{GREEN}{BOLD}下文：{RESET}{input_data['article_bottom'][:100]}...")
+            print_info("=" * 80)
+
+            messages.append({"role": "user", "content": "这是用户的上文：" + input_data['article_top']})
+            messages.append({"role": "assistant", "content": "好的，已记录"})
+            messages.append({"role": "user", "content": user_input})
+
+            content = ""
+
+            # Agent 内循环
+            while True:
+                llm_response = self._model_inference(messages)
+
+                # 记录调用的 Skill 名称
+                if llm_response["status"] == "succeed" and llm_response.get("stop_reason") == "tool_calls":
+                    if "tools" in llm_response:
+                        for tool_call in llm_response["tools"]:
+                            if tool_call["function_name"].upper() == "SKILL":
+                                skill_name = tool_call["arguments"].get("command", "")
+                                if skill_name:
+                                    current_turn_skills.append(skill_name)
+
+                status = llm_response["status"]
+                if status == "failed":
+                    error_message = llm_response["error_message"]
+                    print_info(f"\n{YELLOW}API Error: {error_message}{RESET}\n")
+                    break
+
+                content = llm_response["content"]
+                messages.append({"role": "assistant", "content": content})
+
+                stop_reason = llm_response["stop_reason"]
+                if stop_reason == "tool_calls":
+                    tool_calls = llm_response["tools"]
+                    tool_messages = self._execute_tools(tool_calls)
+                    messages.extend(tool_messages)
+                    continue
+                elif stop_reason == "stop":
+                    if content:
+                        print_assistant(content)
+                    break
+                else:
+                    print_info(f"[stop_reason={stop_reason}]")
+                    if content:
+                        print_assistant(content)
+                    break
+
+            # 打印汇总
+            if current_turn_skills:
+                print(
+                    f"\n{GREEN}{BOLD}✅ [{input_data.get('title', 'N/A')}] 本次输入共调用 {len(current_turn_skills)} 个 Skill:{RESET}")
+                for skill_name in current_turn_skills:
+                    print(f"   • {skill_name}")
+            else:
+                print(f"\n{DIM}ℹ️  [{input_data.get('title', 'N/A')}] 本次输入未调用任何 Skill{RESET}")
+
+            return {
+                "input": user_input,
+                "title": input_data.get('title', ''),
+                "predict_skills": current_turn_skills,
+                "article_top": input_data['article_top'],
+                "article_bottom": input_data['article_bottom'],
+                "predict": content
+            }
+
+        except Exception as e:
+            print_info(f"\n{RED}❌ 处理失败 [{input_data.get('title', 'N/A')}]: {e}{RESET}")
+            return {
+                "input": input_data.get("input", ""),
+                "title": input_data.get('title', ''),
+                "predict_skills": [],
+                "article_top": input_data.get('article_top', ''),
+                "article_bottom": input_data.get('article_bottom', ''),
+                "predict": f"Error: {str(e)}"
+            }
+
+    def run_multithread(self, max_workers: int = 3):
+        """多线程运行 Agent Loop"""
+        print_info("\n" + "=" * 80)
+        print_info("Step 1: 启动加载SKILL元数据【Level 1】")
+        print_info("=" * 80)
+        system_prompt = self._build_system_prompt()
+        print_info(f"system_prompt:\n{system_prompt}")
+        print_info(f"\n[Token 消耗: 约 {len(system_prompt)} 字符（仅元数据）]")
+        print_info(f"\n{'=' * 80}")
+        print_info(f"开始多线程处理，共 {len(inputs)} 条数据，最大线程数: {max_workers}")
+        print_info(f"{'=' * 80}\n")
+
+        global logger
+
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # 提交所有任务
+            future_to_input = {
+                executor.submit(self.process_single_input, input_data): input_data
+                for input_data in inputs
+            }
+
+            # 收集结果
+            for future in as_completed(future_to_input):
+                input_data = future_to_input[future]
+                try:
+                    result = future.result()
+                    with logger_lock:
+                        logger.append(result)
+                        print_info(f"\n✅ 已完成 {len(logger)}/{len(inputs)} 条")
+                except Exception as e:
+                    print_info(f"\n{RED}❌ 任务异常 [{input_data.get('title', 'N/A')}]: {e}{RESET}")
+
+        # 保存日志到JSON文件
+        log_file = working_directory / "data/agent_log.json"
+        try:
+            with open(log_file, 'w', encoding='utf-8') as f:
+                json.dump(logger, f, ensure_ascii=False, indent=2)
+            print_info(f"\n✅ 日志已保存到: {log_file}")
+            print_info(f"   共保存 {len(logger)} 条记录")
+        except Exception as e:
+            print_info(f"\n❌ 保存日志失败: {e}")
+
+
+if __name__ == "__main__":
+    # 创建 Agent
+    skills_dir = working_directory / ".claude" / "skills"
+    registry = SkillRegistry(skills_dir)
+    agent = AgentLoop(registry)
+
+    # 多线程运行示例（可根据需要调整 max_workers）
+    agent.run_multithread(max_workers=10)
+

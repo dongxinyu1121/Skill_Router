@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.idea/
+
+# Environment
+.env
+
+# Sessions & runtime data
+workspace/.sessions/
+workspace/.agents/
+workspace/memory/
+workspace/cron/
+workspace/delivery-queue/
+
+# OS
+.DS_Store
+Thumbs.db
