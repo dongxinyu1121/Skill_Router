@@ -16,21 +16,23 @@
 ## 项目结构
 
 ```
-learn-agent-skills/
-├── agent.py              # 完整 Agent（真实 LLM 交互）
-├── agent_mock.py         # Mock Agent（演示用，无需 API Key）
-├── skills.py             # Skill 注册表，管理三级加载
-├── tools.py              # 工具实现：SkillTool / ReadFileTool / BashTool
-├── llms.py               # LLM 客户端（OpenAI 兼容 API）
-├── prompts.py            # 系统提示词模板
-├── skill_env.py          # skill示例环境初始化
-├── .env                  # API 配置（仅 agent.py 需要）
-└── .claude/skills/       # Skill 目录
+progressive_disclosure/
+├── cli/                      # 入口层
+├── core/                     # 配置、提示词、LLM 客户端
+├── demo/                     # 演示环境
+├── skill_core/               # Skill 数据与注册表
+├── toolkit/                  # 工具层：Skill / ReadFile / Bash
+├── runtime/                  # Agent 运行层：共享基类、loop、mock
+├── evaluation_pipeline/      # 批量评测层
+├── compat/                   # 旧导入路径兼容层
+├── .env.example              # 本地配置模板
+├── .gitignore
+└── .claude/skills/           # Skill 目录
     └── code-reviewer/
-        ├── SKILL.md              # Skill 定义与工作流程
-        ├── references/           # Level 3 资源
+        ├── SKILL.md
+        ├── references/
         │   └── style-guide.md
-        └── scripts/              # Level 3 资源
+        └── scripts/
             └── lint.sh
 ```
 项目中skills只是演示示例。你可以尝试其它的skill。
@@ -39,11 +41,12 @@ learn-agent-skills/
 
 | 文件 | 职责 |
 |------|------|
-| `skills.py` | `SkillRegistry` - 扫描 Skill 目录，管理元数据缓存和三级加载 |
-| `tools.py` | `Tool` 基类；`SkillTool` 触发 Level 2；`ReadFileTool` 支持 Level 3 相对路径解析 |
-| `llms.py` | `LLMClient` - 封装 OpenAI 兼容 API 调用 |
-| `agent.py` | `AgentLoop` - 主循环，处理用户输入、模型推理、工具调用 |
-| `agent_mock.py` | `MockAgent` - 模拟模型输出，用于演示 |
+| `skill_core/` | `SkillRegistry` - 扫描 Skill 目录，管理元数据缓存和三级加载 |
+| `toolkit/` | `Tool` 基类；`SkillTool` 触发 Level 2；`ReadFileTool` 支持 Level 3 相对路径解析 |
+| `core/llms.py` | `LLMClient` - 封装 OpenAI 兼容 API 调用 |
+| `runtime/agent_loop.py` | `AgentLoop` - 主循环，处理用户输入、模型推理、工具调用 |
+| `runtime/mock_agent.py` | `MockAgent` - 模拟模型输出，用于演示 |
+| `cli/` | 各入口脚本：agent、mock、evaluation |
 
 
 ## 启动方式
@@ -53,7 +56,7 @@ learn-agent-skills/
 适合理解渐进披露机制：
 
 ```bash
-python agent_mock.py
+python cli/agent_mock.py
 ```
 
 输出展示完整的三级披露流程。
@@ -71,7 +74,7 @@ cp .env.example .env
 # 编辑 .env：LLM_API_KEY=xxx, LLM_BASE_URL=xxx, LLM_MODEL=xxx
 
 # 2. 运行
-python agent.py
+python cli/agent.py
 ```
 
 启动后进入交互式会话，
@@ -80,9 +83,9 @@ python agent.py
 
 ## 创建 Skill
 
-运行agent_mock.py或者agent.py，会自动创建`.claude/skills/code-reviewer/SKILL.md`以及相关资源。
+运行 `cli/agent_mock.py` 或 `cli/agent.py`，会自动创建 `.claude/skills/code-reviewer/SKILL.md` 以及相关资源。
 
-可以通过skill_env.py文件修改Skill的内容。
+可以通过 `demo/skill_env.py` 文件修改 Skill 的内容。
 
 ## 依赖
 

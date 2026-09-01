@@ -1,15 +1,13 @@
 import json
 
-from dotenv import load_dotenv
 from openai import OpenAI
 
-from config import load_llm_settings
+from .config import load_llm_settings
 
 
 class LLMClient(object):
 
     def __init__(self):
-        load_dotenv()
         settings = load_llm_settings()
         self.client = OpenAI(
             api_key=settings["api_key"],
