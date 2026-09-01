@@ -15,14 +15,17 @@ BOLD = "\033[1m"
 
 
 def colored_prompt() -> str:
+    """返回带颜色的命令行用户输入提示符。"""
     return f"{CYAN}{BOLD}You > {RESET}"
 
 
 def print_assistant(text: str) -> None:
+    """用统一格式打印模型最终回复。"""
     print(f"\n{GREEN}{BOLD}Assistant:{RESET} {text}\n")
 
 
 def print_info(text: str) -> None:
+    """用弱化颜色打印调试和流程信息。"""
     print(f"{DIM}{text}{RESET}")
 
 
@@ -30,10 +33,12 @@ class AgentLoop(AgentBase):
     """Interactive LLM-backed agent loop."""
 
     def __init__(self, skill_registry: SkillRegistry):
+        """创建真实交互 Agent，并绑定 LLM 客户端。"""
         super().__init__(skill_registry)
         self.llm_client = LLMClient()
 
     def _model_inference(self, messages: List[Dict]) -> dict:
+        """把当前对话、系统提示词和工具 schema 发送给模型。"""
         return self.llm_client.inference(
             messages=messages,
             system_prompt=self._build_system_prompt(),
@@ -41,6 +46,7 @@ class AgentLoop(AgentBase):
         )
 
     def _execute_tools(self, tool_calls: list[dict]) -> list[dict]:
+        """执行模型请求的工具调用，并把工具结果转成 messages。"""
         tool_messages: list[dict] = []
         for tool_call in tool_calls:
             func_name = tool_call["function_name"]
@@ -89,6 +95,7 @@ class AgentLoop(AgentBase):
         return tool_messages
 
     def run(self) -> None:
+        """启动命令行交互循环，直到用户输入退出命令。"""
         print_info("\n" + "=" * 80)
         print_info("Step 1: 启动加载SKILL元数据【Level 1】")
         print_info("=" * 80)

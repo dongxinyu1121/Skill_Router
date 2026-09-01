@@ -5,6 +5,7 @@ from skill_core import SkillRegistry
 
 
 def main() -> None:
+    """启动真实 LLM Agent，并从当前目录加载 skills 注册表。"""
     skills_dir = Path.cwd() / ".claude" / "skills"
     registry = SkillRegistry(skills_dir)
     agent = AgentLoop(registry)

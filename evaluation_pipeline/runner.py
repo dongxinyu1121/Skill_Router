@@ -10,7 +10,10 @@ from .settings import EvaluationSettings
 
 
 class BatchEvaluator:
+    """负责多线程调模型、汇总分数并保存评测结果。"""
+
     def __init__(self, settings: EvaluationSettings):
+        """保存评测配置，并初始化模型客户端和进度计数器。"""
         self.settings = settings
         self.client = JudgeClient()
         self.counter_lock = Lock()
@@ -18,6 +21,7 @@ class BatchEvaluator:
         self.total_count = 0
 
     def _judge_once(self, real_bottom: str, predict: str, real_top: str, model_name: str, max_retries: int = 2) -> int:
+        """对单个模型做一次语义相似度判断，失败时按次数重试。"""
         prompt = build_prompt(real_bottom, predict, real_top)
         for attempt in range(max_retries):
             try:
@@ -29,6 +33,7 @@ class BatchEvaluator:
         return 0
 
     def _judge_single_article(self, idx: int, article: dict) -> dict:
+        """分别调用两个模型评判一篇文章，并返回结构化分数。"""
         real_bottom = article["article_bottom"]
         predict = article["predict"]
         real_top = article["article_top"]
@@ -55,6 +60,7 @@ class BatchEvaluator:
         }
 
     def run(self) -> None:
+        """执行完整批量评测流程：加载数据、并发评判、汇总、保存。"""
         articles = load_articles(self.settings.input_json)
         self.total_count = len(articles)
         self.completed_count = 0

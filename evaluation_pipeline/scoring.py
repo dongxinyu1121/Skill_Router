@@ -15,6 +15,7 @@ JUDGE_PROMPT_TEMPLATE = """你是一个文本相似度判断专家。请判断�
 
 
 def build_prompt(real_bottom: str, predict: str, real_top: str) -> str:
+    """把文章上文、真实下文和预测下文组装成评判 prompt。"""
     return JUDGE_PROMPT_TEMPLATE.format(
         real_top=real_top,
         real_bottom=real_bottom,
@@ -23,6 +24,7 @@ def build_prompt(real_bottom: str, predict: str, real_top: str) -> str:
 
 
 def score_answer(answer: str) -> int:
+    """把模型回答的“是/否”转换成 1/0 分数。"""
     answer = answer.strip()
     if answer == "是":
         return 1

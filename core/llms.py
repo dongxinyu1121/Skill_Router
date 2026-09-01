@@ -6,8 +6,10 @@ from .config import load_llm_settings
 
 
 class LLMClient(object):
+    """封装 OpenAI-compatible Chat Completions 调用。"""
 
     def __init__(self):
+        """读取模型配置并创建底层 OpenAI 客户端。"""
         settings = load_llm_settings()
         self.client = OpenAI(
             api_key=settings["api_key"],
@@ -16,6 +18,7 @@ class LLMClient(object):
         self.model_name = settings["model_name"]
 
     def inference(self, messages, system_prompt, tool_schema):
+        """发送一轮模型请求，并把 tool_calls 解析成项目内部格式。"""
         try:
             response = self.client.chat.completions.create(
                 model=self.model_name,

@@ -13,10 +13,12 @@ class MockAgent(AgentBase):
     """Deterministic demo agent for the progressive disclosure flow."""
 
     def __init__(self, registry: SkillRegistry):
+        """创建不依赖真实模型的演示 Agent。"""
         super().__init__(registry)
         self.context: Dict[str, Any] = {}
 
     def _parse_model_output(self, output: str) -> Optional[Dict]:
+        """从模拟模型文本中解析工具调用。"""
         json_match = re.search(r"```json\s*(\{.*?\})\s*```", output, re.DOTALL)
         if json_match:
             try:
@@ -35,6 +37,7 @@ class MockAgent(AgentBase):
         return None
 
     def _model_inference(self, user_input: str, available_info: str = "") -> str:
+        """用固定规则模拟模型如何根据 Level 1 元数据选择 Skill。"""
         triggers = ["review", "审查", "检查代码", "看看这段代码"]
         if any(t in user_input.lower() for t in triggers):
             return f"""
@@ -55,6 +58,7 @@ class MockAgent(AgentBase):
         return f"[模型思考] 未匹配到特定 Skill，直接回应用户: {user_input}"
 
     def run(self, user_input: str) -> None:
+        """打印完整的 Level 1/2/3 渐进披露演示过程。"""
         print("=" * 80)
         print(f"用户输入: {user_input}")
         print("=" * 80)

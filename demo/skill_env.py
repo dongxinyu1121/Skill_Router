@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 def setup_demo_environment():
-    """创建演示用的 Skill 文件结构"""
+    """创建演示用的 code-reviewer Skill 文件结构。"""
     home = Path.cwd()
     skills_dir = home / ".claude" / "skills" / "code-reviewer"
     skills_dir.mkdir(parents=True, exist_ok=True)

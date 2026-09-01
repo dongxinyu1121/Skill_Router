@@ -24,4 +24,5 @@ class Skill:
 
     @property
     def name(self) -> str:
+        """返回 skill 的公开名称，方便外层不用穿透 metadata。"""
         return self.metadata.name

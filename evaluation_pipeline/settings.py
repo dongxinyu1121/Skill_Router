@@ -7,6 +7,8 @@ from core.config import load_llm_settings
 
 @dataclass(frozen=True)
 class EvaluationSettings:
+    """批量评测需要的路径、模型和执行参数。"""
+
     script_dir: Path
     input_json: Path
     output_csv: Path
@@ -17,6 +19,7 @@ class EvaluationSettings:
 
 
 def load_settings(script_dir: Path | None = None) -> EvaluationSettings:
+    """从项目根目录和环境变量中生成评测配置。"""
     base_dir = script_dir or Path(__file__).resolve().parents[1]
     load_llm_settings()
     return EvaluationSettings(

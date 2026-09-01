@@ -8,6 +8,7 @@ class ReadFileTool(Tool):
     """Read a file from disk, resolving relative paths from skill context."""
 
     def __init__(self):
+        """声明 ReadFile 工具名称、说明和参数 schema。"""
         super().__init__(
             name="ReadFile",
             description="读取文件内容。支持绝对路径或基于当前 Skill Base Path 的相对路径",
@@ -16,6 +17,7 @@ class ReadFileTool(Tool):
         )
 
     def execute(self, file_path: str) -> Dict[str, str]:
+        """读取文件；相对路径会从当前 skill 的 base_path 解析。"""
         if not file_path.startswith("/") and self.context.get("base_path"):
             full_path = Path(self.context["base_path"]) / file_path
         else:

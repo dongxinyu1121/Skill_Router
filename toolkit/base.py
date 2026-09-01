@@ -11,6 +11,7 @@ class Tool:
         params: Dict[str, Any],
         required: List[str] | None = None,
     ):
+        """记录工具的公开名称、说明和参数 schema。"""
         self.name = name
         self.description = description
         self.params = params
@@ -18,12 +19,15 @@ class Tool:
         self.context: Dict[str, Any] = {}
 
     def set_context(self, context: Dict[str, Any]) -> None:
+        """注入当前 Agent 上下文，例如已激活 skill 的 base_path。"""
         self.context = context
 
     def execute(self, **kwargs) -> Dict[str, Any]:
+        """执行工具逻辑，子类必须实现。"""
         raise NotImplementedError
 
     def to_schema(self) -> Dict[str, Any]:
+        """转换成 OpenAI-compatible tool calling schema。"""
         return {
             "type": "function",
             "function": {
