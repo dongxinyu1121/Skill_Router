@@ -23,8 +23,6 @@ progressive_disclosure/
 ├── skill_core/               # Skill 数据与注册表
 ├── toolkit/                  # 工具层：Skill / ReadFile / Bash
 ├── runtime/                  # Agent 运行层：共享基类、loop、mock
-├── evaluation_pipeline/      # 批量评测层
-├── compat/                   # 旧导入路径兼容层
 ├── .env.example              # 本地配置模板
 ├── .gitignore
 └── .claude/skills/           # Skill 目录
@@ -45,23 +43,12 @@ progressive_disclosure/
 | `toolkit/` | `Tool` 基类；`SkillTool` 触发 Level 2；`ReadFileTool` 支持 Level 3 相对路径解析 |
 | `core/llms.py` | `LLMClient` - 封装 OpenAI 兼容 API 调用 |
 | `runtime/agent_loop.py` | `AgentLoop` - 主循环，处理用户输入、模型推理、工具调用 |
-| `runtime/mock_agent.py` | `MockAgent` - 模拟模型输出，用于演示 |
-| `cli/` | 各入口脚本：agent、mock、evaluation |
+| `cli/` | 各入口脚本：agent |
 
 
 ## 启动方式
 
-### 方式一：Mock 演示（无需 API Key）
-
-适合理解渐进披露机制：
-
-```bash
-python cli/agent_mock.py
-```
-
-输出展示完整的三级披露流程。
-
-### 方式二：真实 LLM 交互
+### 方式一：真实 LLM 交互
 
 要求：
 1. 需要配置 API Key。
@@ -83,7 +70,7 @@ python cli/agent.py
 
 ## 创建 Skill
 
-运行 `cli/agent_mock.py` 或 `cli/agent.py`，会自动创建 `.claude/skills/code-reviewer/SKILL.md` 以及相关资源。
+运行 `cli/agent.py` 会自动创建 `.claude/skills/code-reviewer/SKILL.md` 以及相关资源。
 
 可以通过 `demo/skill_env.py` 文件修改 Skill 的内容。
 
