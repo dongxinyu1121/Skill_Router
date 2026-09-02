@@ -1,5 +1,5 @@
 import subprocess
-from typing import Dict
+from typing import Dict, Union
 
 from .base import Tool
 
@@ -26,7 +26,7 @@ class BashTool(Tool):
             required=["command"],
         )
 
-    def execute(self, command: str, description: str = "") -> Dict[str, str | int]:
+    def execute(self, command: str, description: str = "") -> Dict[str, Union[str, int]]:
         """执行 shell 命令，并返回 stdout、stderr 和退出码。"""
         dangerous = ["rm -rf /", "sudo", "shutdown", "reboot", "> /dev/", "mkfs", "> /dev/sd", "dd if="]
         for pattern in dangerous:

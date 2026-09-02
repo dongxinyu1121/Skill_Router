@@ -58,10 +58,10 @@ progressive_disclosure/
 ```bash
 # 1. 配置环境变量
 cp .env.example .env
-# 编辑 .env：LLM_API_KEY=xxx, LLM_BASE_URL=xxx, LLM_MODEL=xxx
+# 编辑 .env：DEEPSEEK_API_KEY=xxx, DEEPSEEK_BASE_URL=xxx, DEEPSEEK_MODEL=xxx
 
 # 2. 运行
-python cli/agent.py
+python -m cli.agent
 ```
 
 启动后进入交互式会话，

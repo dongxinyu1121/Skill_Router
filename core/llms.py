@@ -44,6 +44,7 @@ class LLMClient(object):
             parsed_response["stop_reason"] = stop_reason
             if stop_reason == "tool_calls":
                 tool_list = []
+                assistant_tool_calls = []
                 tool_calls = response.choices[0].message.tool_calls
                 for tool_call in tool_calls:
                     tool_list.append({
@@ -51,7 +52,16 @@ class LLMClient(object):
                         "arguments": json.loads(tool_call.function.arguments),
                         "tool_call_id": tool_call.id,
                     })
+                    assistant_tool_calls.append({
+                        "id": tool_call.id,
+                        "type": "function",
+                        "function": {
+                            "name": tool_call.function.name,
+                            "arguments": tool_call.function.arguments,
+                        },
+                    })
                 parsed_response["tools"] = tool_list
+                parsed_response["assistant_tool_calls"] = assistant_tool_calls
         else:
             parsed_response["status"] = "failed"
             parsed_response["error_message"] = error_msg

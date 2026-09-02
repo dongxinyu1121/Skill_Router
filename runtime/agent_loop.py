@@ -45,9 +45,9 @@ class AgentLoop(AgentBase):
             tool_schema=self._get_tool_schema(),
         )
 
-    def _execute_tools(self, tool_calls: list[dict]) -> list[dict]:
+    def _execute_tools(self, tool_calls: List[Dict]) -> List[Dict]:
         """执行模型请求的工具调用，并把工具结果转成 messages。"""
-        tool_messages: list[dict] = []
+        tool_messages: List[Dict] = []
         for tool_call in tool_calls:
             func_name = tool_call["function_name"]
             arguments = tool_call["arguments"]
@@ -103,7 +103,7 @@ class AgentLoop(AgentBase):
         print_info(f"system_prompt:\n{system_prompt}")
         print_info(f"\n[Token 消耗: 约 {len(system_prompt)} 字符（仅元数据）]")
 
-        messages: list[dict] = []
+        messages: List[Dict] = []
         while True:
             try:
                 user_input = input(colored_prompt()).strip()
@@ -141,11 +141,19 @@ class AgentLoop(AgentBase):
                     break
 
                 content = llm_response["content"]
-                messages.append({"role": "assistant", "content": content})
 
                 if llm_response["stop_reason"] == "tool_calls":
+                    messages.append(
+                        {
+                            "role": "assistant",
+                            "content": content,
+                            "tool_calls": llm_response["assistant_tool_calls"],
+                        }
+                    )
                     messages.extend(self._execute_tools(llm_response["tools"]))
                     continue
+
+                messages.append({"role": "assistant", "content": content})
 
                 if llm_response["stop_reason"] == "stop":
                     if content:

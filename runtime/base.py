@@ -13,7 +13,7 @@ class AgentBase:
         """保存 skill 注册表，并注册所有 Agent 共享工具。"""
         self.skill_registry = skill_registry
         self.tools: Dict[str, Tool] = {}
-        self.conversation_history: list[Dict[str, Any]] = []
+        self.conversation_history: List[Dict[str, Any]] = []
         self.agent_context: Dict[str, Any] = {"working_directory": Path.cwd()}
 
         self._register_tool(SkillTool(skill_registry))

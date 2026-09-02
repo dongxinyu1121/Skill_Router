@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 class Tool:
@@ -9,7 +9,7 @@ class Tool:
         name: str,
         description: str,
         params: Dict[str, Any],
-        required: List[str] | None = None,
+        required: Optional[List[str]] = None,
     ):
         """记录工具的公开名称、说明和参数 schema。"""
         self.name = name
