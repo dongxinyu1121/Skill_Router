@@ -1,0 +1,3080 @@
+{
+  "created_at": "2026-09-02T21:17:10",
+  "summary": {
+    "total": 100,
+    "success": 100,
+    "failed": 0,
+    "strict_top1_accuracy": 0.73,
+    "strict_top3_accuracy": 0.94,
+    "acceptable_hit_rate": 0.95,
+    "bad_skill_call_rate": 0.0,
+    "avg_skill_calls": 2.65
+  },
+  "results": [
+    {
+      "id": "case_001",
+      "domain": "科技",
+      "query": "我写了一段人工智能学习的开头，但不知道下一段该怎么展开，你帮我接着写。",
+      "expected_skills": [
+        "outline-expander"
+      ],
+      "acceptable_skills": [
+        "section-opener",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "writing-diagnose"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 29038,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": false,
+        "acceptable_hit": false,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_002",
+      "domain": "历史",
+      "query": "我想写唐宋城市商业的变化，可是只写了背景，后面不知道按什么顺序讲。",
+      "expected_skills": [
+        "outline-expander"
+      ],
+      "acceptable_skills": [
+        "material-sequencer",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "ending-designer",
+        "perfectionism-break"
+      ],
+      "actual_skills": [
+        "outline-expander",
+        "material-sequencer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3508,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_003",
+      "domain": "教育",
+      "query": "这篇关于双减政策的文章写到一半，大纲突然断了，接下来应该写影响还是写问题？",
+      "expected_skills": [
+        "outline-expander"
+      ],
+      "acceptable_skills": [
+        "argument-builder",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "character-unstuck",
+        "dialogue-naturalizer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "outline-expander",
+        "argument-builder",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 8677,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_004",
+      "domain": "职场",
+      "query": "我写职业规划写到第二段，不知道下一段该接个人经历还是行业趋势。",
+      "expected_skills": [
+        "outline-expander"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "cliche-breaker",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "outline-expander",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6702,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_005",
+      "domain": "AI",
+      "query": "我想论证大模型会改变学习方式，但现在只有一个判断，没有论证链。",
+      "expected_skills": [
+        "argument-builder"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "causal-clarifier"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "argument-builder",
+        "logic-bridge",
+        "causal-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3893,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_006",
+      "domain": "商业",
+      "query": "我想说明会员制超市为什么能赚钱，但论点很散，不知道怎么组织成一套说法。",
+      "expected_skills": [
+        "argument-builder"
+      ],
+      "acceptable_skills": [
+        "multi-thread-organizer",
+        "logic-bridge"
+      ],
+      "bad_skills": [
+        "section-opener",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "argument-builder",
+        "outline-expander",
+        "logic-bridge"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3593,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_007",
+      "domain": "社会观察",
+      "query": "我想写短视频让人注意力变差，但总感觉论据和结论之间差了一步。",
+      "expected_skills": [
+        "logic-bridge"
+      ],
+      "acceptable_skills": [
+        "argument-builder",
+        "causal-clarifier"
+      ],
+      "bad_skills": [
+        "voice-amplifier",
+        "ending-designer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "argument-builder",
+        "logic-bridge",
+        "causal-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4906,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_008",
+      "domain": "医学科普",
+      "query": "我写熬夜影响免疫力，但从睡眠不足跳到容易感冒好像太突然。",
+      "expected_skills": [
+        "logic-bridge"
+      ],
+      "acceptable_skills": [
+        "causal-clarifier",
+        "detail-generator"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "logic-bridge",
+        "causal-clarifier",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3375,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_009",
+      "domain": "环保",
+      "query": "我说塑料污染会影响海洋生态，但中间的因果关系写得很糊。",
+      "expected_skills": [
+        "causal-clarifier"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "detail-generator"
+      ],
+      "bad_skills": [
+        "tone-matcher",
+        "section-opener",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "causal-clarifier",
+        "logic-bridge",
+        "detail-generator"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3007,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_010",
+      "domain": "历史",
+      "query": "我写明朝海禁导致商业衰落，但又想说民间贸易活跃，前后好像矛盾。",
+      "expected_skills": [
+        "contradiction-resolver"
+      ],
+      "acceptable_skills": [
+        "causal-clarifier",
+        "logic-bridge"
+      ],
+      "bad_skills": [
+        "word-variety-expander",
+        "section-opener",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "contradiction-resolver",
+        "causal-clarifier",
+        "logic-bridge"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 28384,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_011",
+      "domain": "文学评论",
+      "query": "我前面说这首诗很含蓄，后面又写它情感外露，读起来自己打架。",
+      "expected_skills": [
+        "contradiction-resolver"
+      ],
+      "acceptable_skills": [
+        "theme-retriever",
+        "logic-bridge"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "plot-unstuck",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "contradiction-resolver",
+        "logic-bridge",
+        "theme-retriever"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5547,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_012",
+      "domain": "科技",
+      "query": "我写量子计算的文章，例子太少，整段像概念堆砌。",
+      "expected_skills": [
+        "detail-generator"
+      ],
+      "acceptable_skills": [
+        "knowledge-gap-detector",
+        "angle-finder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "pacing-checker",
+        "perfectionism-break"
+      ],
+      "actual_skills": [
+        "detail-generator",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6809,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_013",
+      "domain": "旅行",
+      "query": "我写西安旅行只写了去了兵马俑和城墙，感觉画面很空。",
+      "expected_skills": [
+        "detail-generator"
+      ],
+      "acceptable_skills": [
+        "voice-amplifier",
+        "angle-finder"
+      ],
+      "bad_skills": [
+        "logic-bridge",
+        "causal-clarifier",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "detail-generator",
+        "outline-expander",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3659,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_014",
+      "domain": "校园生活",
+      "query": "我想写第一次参加社团招新的经历，但细节干巴巴的，不像真实发生过。",
+      "expected_skills": [
+        "detail-generator"
+      ],
+      "acceptable_skills": [
+        "voice-amplifier",
+        "sentence-diversifier"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "knowledge-gap-detector",
+        "causal-clarifier"
+      ],
+      "actual_skills": [
+        "detail-generator",
+        "angle-finder",
+        "section-opener"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5485,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_015",
+      "domain": "社会观察",
+      "query": "我写外卖骑手这一段，不知道从劳动者、平台还是消费者角度切入。",
+      "expected_skills": [
+        "angle-finder"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "purpose-clarifier",
+        "audience-definer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7628,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_016",
+      "domain": "历史",
+      "query": "写丝绸之路时我不想再写老套的贸易交流，有没有更有意思的切入口？",
+      "expected_skills": [
+        "angle-finder"
+      ],
+      "acceptable_skills": [
+        "cliche-breaker",
+        "hook-strengthener"
+      ],
+      "bad_skills": [
+        "logic-bridge",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "cliche-breaker"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3660,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_017",
+      "domain": "科技",
+      "query": "区块链这个话题被写烂了，我想找一个不那么俗的角度。",
+      "expected_skills": [
+        "cliche-breaker"
+      ],
+      "acceptable_skills": [
+        "angle-finder",
+        "hook-strengthener"
+      ],
+      "bad_skills": [
+        "causal-clarifier",
+        "proportion-balancer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "cliche-breaker",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6152,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_018",
+      "domain": "商业",
+      "query": "我想写咖啡店创业，但满脑子都是情怀和梦想，太模板化了。",
+      "expected_skills": [
+        "cliche-breaker"
+      ],
+      "acceptable_skills": [
+        "angle-finder",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "logic-bridge",
+        "dialogue-naturalizer",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "cliche-breaker",
+        "angle-finder",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3656,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_019",
+      "domain": "心理",
+      "query": "我坐在电脑前半小时了，关于拖延症这篇文章一个字都写不出来。",
+      "expected_skills": [
+        "blank-mind-starter"
+      ],
+      "acceptable_skills": [
+        "motivation-reigniter",
+        "perfectionism-break"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "material-sequencer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "blank-mind-starter",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 10971,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_020",
+      "domain": "教育",
+      "query": "老师让我写读书笔记，但我脑子空白，只知道这本书还不错。",
+      "expected_skills": [
+        "blank-mind-starter"
+      ],
+      "acceptable_skills": [
+        "purpose-clarifier",
+        "angle-finder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "causal-clarifier",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "blank-mind-starter",
+        "angle-finder",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 12133,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_021",
+      "domain": "职场",
+      "query": "我想写年终总结，但不知道这篇到底是给领导看还是给自己复盘。",
+      "expected_skills": [
+        "audience-definer"
+      ],
+      "acceptable_skills": [
+        "purpose-clarifier",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "ending-designer",
+        "cliche-breaker"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "audience-definer",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 38013,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_022",
+      "domain": "医学科普",
+      "query": "我写疫苗科普，不确定应该讲给普通家长听，还是写得更专业一点。",
+      "expected_skills": [
+        "audience-definer"
+      ],
+      "acceptable_skills": [
+        "purpose-clarifier",
+        "knowledge-gap-detector"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "audience-definer",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5607,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_023",
+      "domain": "商业",
+      "query": "我收集了很多新能源汽车行业资料，但不知道哪些该放进文章，哪些该删。",
+      "expected_skills": [
+        "overload-filter"
+      ],
+      "acceptable_skills": [
+        "material-sequencer",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "word-variety-expander",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "overload-filter",
+        "material-sequencer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 31982,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_024",
+      "domain": "历史",
+      "query": "我查了好多关于五四运动的材料，现在反而不知道哪些证据最该用。",
+      "expected_skills": [
+        "overload-filter"
+      ],
+      "acceptable_skills": [
+        "material-sequencer",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "section-opener",
+        "character-unstuck",
+        "tone-matcher"
+      ],
+      "actual_skills": [
+        "overload-filter",
+        "material-sequencer",
+        "argument-builder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7827,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_025",
+      "domain": "科技",
+      "query": "我想写芯片制程，但发现自己不太懂光刻机和纳米工艺，怕写错。",
+      "expected_skills": [
+        "knowledge-gap-detector"
+      ],
+      "acceptable_skills": [
+        "detail-generator",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "voice-amplifier"
+      ],
+      "actual_skills": [
+        "knowledge-gap-detector",
+        "angle-finder",
+        "section-opener"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 20416,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_026",
+      "domain": "医学科普",
+      "query": "写血糖管理时，我不确定胰岛素抵抗该怎么解释，怕误导读者。",
+      "expected_skills": [
+        "knowledge-gap-detector"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "detail-generator"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "ending-designer",
+        "cliche-breaker"
+      ],
+      "actual_skills": [
+        "knowledge-gap-detector",
+        "causal-clarifier",
+        "audience-definer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4676,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_027",
+      "domain": "社会观察",
+      "query": "我本来写社区养老，结果越写越像在讨论年轻人买房，主题跑偏了。",
+      "expected_skills": [
+        "theme-retriever"
+      ],
+      "acceptable_skills": [
+        "focus-restorer",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "word-variety-expander",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "theme-retriever",
+        "purpose-clarifier",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4349,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_028",
+      "domain": "环保",
+      "query": "文章标题是低碳生活，但我写着写着变成了吐槽城市交通。",
+      "expected_skills": [
+        "theme-retriever"
+      ],
+      "acceptable_skills": [
+        "focus-restorer",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "character-unstuck",
+        "dialogue-naturalizer",
+        "sentence-diversifier"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "theme-retriever",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4180,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_029",
+      "domain": "校园生活",
+      "query": "我写毕业季，本来想温暖一点，结果后半段突然变得像说教。",
+      "expected_skills": [
+        "tone-matcher"
+      ],
+      "acceptable_skills": [
+        "voice-amplifier",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "causal-clarifier",
+        "material-sequencer",
+        "plot-unstuck"
+      ],
+      "actual_skills": [
+        "tone-matcher",
+        "outline-expander",
+        "ending-designer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5207,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_030",
+      "domain": "文学",
+      "query": "这篇散文前面很克制，后面突然鸡汤味很重，帮我调回来。",
+      "expected_skills": [
+        "tone-matcher"
+      ],
+      "acceptable_skills": [
+        "voice-amplifier",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "knowledge-gap-detector",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "tone-matcher",
+        "voice-amplifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3993,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_031",
+      "domain": "个人成长",
+      "query": "这段文字读起来不像我写的，太像模板作文了。",
+      "expected_skills": [
+        "voice-amplifier"
+      ],
+      "acceptable_skills": [
+        "tone-matcher",
+        "cliche-breaker"
+      ],
+      "bad_skills": [
+        "logic-bridge",
+        "causal-clarifier",
+        "material-sequencer"
+      ],
+      "actual_skills": [
+        "voice-amplifier",
+        "tone-matcher",
+        "quality-assessor"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 40636,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_032",
+      "domain": "旅行",
+      "query": "我写云南旅行，句子都很正确，但没有自己的感受，像旅游宣传稿。",
+      "expected_skills": [
+        "voice-amplifier"
+      ],
+      "acceptable_skills": [
+        "detail-generator",
+        "tone-matcher"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "voice-amplifier",
+        "detail-generator",
+        "tone-matcher"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5112,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_033",
+      "domain": "科技",
+      "query": "这一段里我反复用了很多次重要、影响、发展，读起来很单调。",
+      "expected_skills": [
+        "word-variety-expander"
+      ],
+      "acceptable_skills": [
+        "sentence-diversifier",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "causal-clarifier",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "word-variety-expander",
+        "sentence-diversifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 9289,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_034",
+      "domain": "历史",
+      "query": "写秦始皇这段一直重复统一、制度、中央集权，有没有更丰富的说法？",
+      "expected_skills": [
+        "word-variety-expander"
+      ],
+      "acceptable_skills": [
+        "sentence-diversifier",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "focus-restorer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 9876,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": false,
+        "acceptable_hit": false,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_035",
+      "domain": "教育",
+      "query": "我这段每句话都是因为所以，因为所以，句式太像了。",
+      "expected_skills": [
+        "sentence-diversifier"
+      ],
+      "acceptable_skills": [
+        "word-variety-expander",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "ending-designer",
+        "plot-unstuck"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "sentence-diversifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 35833,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_036",
+      "domain": "商业",
+      "query": "这段商业分析全是主谓宾短句，读起来像清单，不像文章。",
+      "expected_skills": [
+        "sentence-diversifier"
+      ],
+      "acceptable_skills": [
+        "voice-amplifier",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "causal-clarifier",
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "sentence-diversifier",
+        "tone-matcher",
+        "quality-assessor"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 11423,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_037",
+      "domain": "社会观察",
+      "query": "第一段讲城市通勤，第二段要转到生活质量，中间接不上。",
+      "expected_skills": [
+        "transition-writer"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "transition-writer",
+        "angle-finder",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4985,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_038",
+      "domain": "历史",
+      "query": "我从清末教育改革跳到现代高考，转折太硬了。",
+      "expected_skills": [
+        "transition-writer"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "word-variety-expander",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "transition-writer",
+        "causal-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3741,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_039",
+      "domain": "文学",
+      "query": "我这篇文章差不多写完了，但结尾不知道怎么收才不俗。",
+      "expected_skills": [
+        "ending-designer"
+      ],
+      "acceptable_skills": [
+        "focus-restorer",
+        "tone-matcher"
+      ],
+      "bad_skills": [
+        "outline-expander",
+        "knowledge-gap-detector",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "ending-designer",
+        "cliche-breaker",
+        "tone-matcher"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4019,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_040",
+      "domain": "环保",
+      "query": "最后一段我不想喊口号，但又想把环保主题收住。",
+      "expected_skills": [
+        "ending-designer"
+      ],
+      "acceptable_skills": [
+        "focus-restorer",
+        "tone-matcher"
+      ],
+      "bad_skills": [
+        "section-opener",
+        "plot-unstuck",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "ending-designer",
+        "tone-matcher",
+        "theme-retriever"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7083,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_041",
+      "domain": "职场",
+      "query": "我觉得这篇复盘已经写完了，但不知道该不该再加一段总结。",
+      "expected_skills": [
+        "focus-restorer"
+      ],
+      "acceptable_skills": [
+        "ending-designer",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "blank-mind-starter",
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "focus-restorer",
+        "ending-designer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4104,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_042",
+      "domain": "校园生活",
+      "query": "毕业演讲稿写到这里好像够了，但我怕停得太突然。",
+      "expected_skills": [
+        "focus-restorer"
+      ],
+      "acceptable_skills": [
+        "ending-designer",
+        "transition-writer"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "cliche-breaker",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "ending-designer",
+        "focus-restorer",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4684,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_043",
+      "domain": "心理",
+      "query": "这篇关于焦虑的文章，我不知道开头怎么写才能让读者愿意看下去。",
+      "expected_skills": [
+        "hook-strengthener"
+      ],
+      "acceptable_skills": [
+        "section-opener",
+        "angle-finder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "material-sequencer",
+        "causal-clarifier"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "hook-strengthener",
+        "audience-definer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 23341,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_044",
+      "domain": "科技",
+      "query": "我想写一个关于机器人走进家庭的开头，但第一句话太平了。",
+      "expected_skills": [
+        "hook-strengthener"
+      ],
+      "acceptable_skills": [
+        "section-opener",
+        "cliche-breaker"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "proportion-balancer"
+      ],
+      "actual_skills": [
+        "hook-strengthener",
+        "angle-finder",
+        "section-opener"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4610,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_045",
+      "domain": "历史",
+      "query": "我要新开一节讲工业革命对家庭生活的影响，不知道第一句怎么切入。",
+      "expected_skills": [
+        "section-opener"
+      ],
+      "acceptable_skills": [
+        "hook-strengthener",
+        "transition-writer"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "overload-filter",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "section-opener",
+        "angle-finder",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7704,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_046",
+      "domain": "教育",
+      "query": "下一段要从学生转到家长视角，但我不知道怎么开这个段落。",
+      "expected_skills": [
+        "section-opener"
+      ],
+      "acceptable_skills": [
+        "transition-writer",
+        "audience-definer"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "knowledge-gap-detector",
+        "plot-unstuck"
+      ],
+      "actual_skills": [
+        "section-opener",
+        "transition-writer",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6071,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_047",
+      "domain": "商业",
+      "query": "我写平台经济，前面花太多篇幅讲概念，后面案例没地方展开了。",
+      "expected_skills": [
+        "pacing-checker"
+      ],
+      "acceptable_skills": [
+        "proportion-balancer",
+        "overload-filter"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "character-unstuck",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "pacing-checker",
+        "proportion-balancer",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6839,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_048",
+      "domain": "历史",
+      "query": "写三国人物时前面铺垫太长，真正分析诸葛亮的部分反而没空间。",
+      "expected_skills": [
+        "pacing-checker"
+      ],
+      "acceptable_skills": [
+        "proportion-balancer",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "proportion-balancer",
+        "focus-restorer",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 11374,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": false,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_049",
+      "domain": "论文写作",
+      "query": "这篇文章引言、案例、结论比例怪怪的，案例占了快一半。",
+      "expected_skills": [
+        "proportion-balancer"
+      ],
+      "acceptable_skills": [
+        "pacing-checker",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "cliche-breaker",
+        "dialogue-naturalizer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "proportion-balancer",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 10466,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_050",
+      "domain": "科技",
+      "query": "我的AI科普文章技术介绍太多，应用和风险部分太少，整体不平衡。",
+      "expected_skills": [
+        "proportion-balancer"
+      ],
+      "acceptable_skills": [
+        "pacing-checker",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "section-opener",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "proportion-balancer",
+        "outline-expander",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3960,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_051",
+      "domain": "文学创作",
+      "query": "小说写到主角进城之后卡住了，不知道接下来发生什么才有戏。",
+      "expected_skills": [
+        "plot-unstuck"
+      ],
+      "acceptable_skills": [
+        "character-unstuck",
+        "cliche-breaker"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "causal-clarifier",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "plot-unstuck"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 10531,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_052",
+      "domain": "剧本创作",
+      "query": "男女主吵完架以后剧情停住了，怎么安排下一场更有冲突？",
+      "expected_skills": [
+        "plot-unstuck"
+      ],
+      "acceptable_skills": [
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "bad_skills": [
+        "overload-filter",
+        "argument-builder",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "plot-unstuck",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 48107,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_053",
+      "domain": "小说",
+      "query": "这个角色明明很谨慎，却突然冲动冒险，感觉不合理。",
+      "expected_skills": [
+        "character-unstuck"
+      ],
+      "acceptable_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "material-sequencer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "character-unstuck",
+        "contradiction-resolver",
+        "plot-unstuck"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 20590,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_054",
+      "domain": "小说",
+      "query": "反派前面很冷静，后面突然开始大段解释计划，像换了个人。",
+      "expected_skills": [
+        "character-unstuck"
+      ],
+      "acceptable_skills": [
+        "dialogue-naturalizer",
+        "tone-matcher"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "overload-filter",
+        "section-opener"
+      ],
+      "actual_skills": [
+        "character-unstuck",
+        "dialogue-naturalizer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 27612,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_055",
+      "domain": "剧本",
+      "query": "两个人的对话太像互相念说明书了，一点不像真人聊天。",
+      "expected_skills": [
+        "dialogue-naturalizer"
+      ],
+      "acceptable_skills": [
+        "character-unstuck",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "proportion-balancer",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "dialogue-naturalizer",
+        "tone-matcher",
+        "detail-generator"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5062,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_056",
+      "domain": "校园小说",
+      "query": "室友吵架那段对话很假，每个人都在讲大道理。",
+      "expected_skills": [
+        "dialogue-naturalizer"
+      ],
+      "acceptable_skills": [
+        "character-unstuck",
+        "tone-matcher"
+      ],
+      "bad_skills": [
+        "overload-filter",
+        "logic-bridge",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "dialogue-naturalizer",
+        "tone-matcher"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 14906,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_057",
+      "domain": "心理",
+      "query": "我写着写着完全没兴趣了，明明题目是自己选的，但现在很想放弃。",
+      "expected_skills": [
+        "motivation-reigniter"
+      ],
+      "acceptable_skills": [
+        "perfectionism-break",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "word-variety-expander",
+        "dialogue-naturalizer",
+        "material-sequencer"
+      ],
+      "actual_skills": [
+        "motivation-reigniter",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4482,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_058",
+      "domain": "校园生活",
+      "query": "论文写到一半越来越烦，感觉这个题目毫无意义。",
+      "expected_skills": [
+        "motivation-reigniter"
+      ],
+      "acceptable_skills": [
+        "purpose-clarifier",
+        "perfectionism-break"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "character-unstuck",
+        "sentence-diversifier"
+      ],
+      "actual_skills": [
+        "motivation-reigniter",
+        "purpose-clarifier",
+        "quality-assessor"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 8233,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_059",
+      "domain": "个人成长",
+      "query": "我一直改第一段，觉得怎么写都不够好，后面完全推进不了。",
+      "expected_skills": [
+        "perfectionism-break"
+      ],
+      "acceptable_skills": [
+        "motivation-reigniter",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "dialogue-naturalizer",
+        "material-sequencer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "perfectionism-break",
+        "blank-mind-starter"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4487,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_060",
+      "domain": "职场",
+      "query": "这份汇报我改了十几遍，还是觉得不行，但说不出哪里不行。",
+      "expected_skills": [
+        "perfectionism-break"
+      ],
+      "acceptable_skills": [
+        "quality-assessor",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "overload-filter"
+      ],
+      "actual_skills": [
+        "quality-assessor",
+        "perfectionism-break"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 12139,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_061",
+      "domain": "文学",
+      "query": "我觉得这段写得很烂，但又说不清烂在哪里，能帮我判断吗？",
+      "expected_skills": [
+        "quality-assessor"
+      ],
+      "acceptable_skills": [
+        "tone-matcher",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "knowledge-gap-detector",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "quality-assessor"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5719,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_062",
+      "domain": "商业",
+      "query": "这段产品分析看起来没说服力，但我不知道是逻辑、例子还是表达的问题。",
+      "expected_skills": [
+        "quality-assessor"
+      ],
+      "acceptable_skills": [
+        "argument-builder",
+        "logic-bridge"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "quality-assessor",
+        "logic-bridge"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3850,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_063",
+      "domain": "职场",
+      "query": "我写工作复盘时，忘了自己到底想证明能力提升还是项目成果。",
+      "expected_skills": [
+        "purpose-clarifier"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "theme-retriever"
+      ],
+      "bad_skills": [
+        "word-variety-expander",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6598,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": false,
+        "acceptable_hit": false,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_064",
+      "domain": "教育",
+      "query": "这篇申请文书我不知道要突出热爱专业，还是突出解决问题的能力。",
+      "expected_skills": [
+        "purpose-clarifier"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "ending-designer",
+        "sentence-diversifier"
+      ],
+      "actual_skills": [
+        "purpose-clarifier",
+        "audience-definer",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6097,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_065",
+      "domain": "历史",
+      "query": "我有制度、人物、战争、经济四条线索，不知道怎么合成一篇讲晚清变局的文章。",
+      "expected_skills": [
+        "multi-thread-organizer"
+      ],
+      "acceptable_skills": [
+        "material-sequencer",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "word-variety-expander",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "multi-thread-organizer",
+        "material-sequencer",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 8077,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_066",
+      "domain": "科技",
+      "query": "我想同时写AI伦理、就业影响和教育变化，但不知道这几个话题怎么连起来。",
+      "expected_skills": [
+        "multi-thread-organizer"
+      ],
+      "acceptable_skills": [
+        "outline-expander",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "section-opener",
+        "dialogue-naturalizer",
+        "character-unstuck"
+      ],
+      "actual_skills": [
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6546,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": false,
+        "acceptable_hit": false,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_067",
+      "domain": "历史",
+      "query": "我有一堆关于近代铁路的资料，不知道先讲技术、政策还是社会影响。",
+      "expected_skills": [
+        "material-sequencer"
+      ],
+      "acceptable_skills": [
+        "multi-thread-organizer",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "voice-amplifier"
+      ],
+      "actual_skills": [
+        "multi-thread-organizer",
+        "material-sequencer",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5355,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_068",
+      "domain": "商业",
+      "query": "市场规模、用户画像、竞品分析、商业模式这些材料应该按什么顺序写？",
+      "expected_skills": [
+        "material-sequencer"
+      ],
+      "acceptable_skills": [
+        "outline-expander",
+        "proportion-balancer"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "material-sequencer",
+        "multi-thread-organizer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3067,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_069",
+      "domain": "科技",
+      "query": "我写AI替代工作的观点，但不确定是技术导致失业，还是产业调整导致岗位变化。",
+      "expected_skills": [
+        "causal-clarifier"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "section-opener",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "causal-clarifier",
+        "argument-builder",
+        "logic-bridge"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7235,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_070",
+      "domain": "社会观察",
+      "query": "我想说年轻人晚婚和房价有关，但这个因果说得太武断。",
+      "expected_skills": [
+        "causal-clarifier"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "voice-amplifier",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "causal-clarifier",
+        "logic-bridge",
+        "argument-builder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 13355,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_071",
+      "domain": "环保",
+      "query": "我想写垃圾分类，但不知道从家庭、社区还是城市治理切入更好。",
+      "expected_skills": [
+        "angle-finder"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "ending-designer",
+        "sentence-diversifier"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6221,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_072",
+      "domain": "医学科普",
+      "query": "睡眠这篇科普开头我不想用你是否经常熬夜这种老套路。",
+      "expected_skills": [
+        "cliche-breaker"
+      ],
+      "acceptable_skills": [
+        "hook-strengthener",
+        "section-opener"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "material-sequencer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "hook-strengthener",
+        "cliche-breaker"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6957,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_073",
+      "domain": "校园生活",
+      "query": "新学期第一天这篇作文，我不想写阳光洒进教室这种俗套开头。",
+      "expected_skills": [
+        "cliche-breaker"
+      ],
+      "acceptable_skills": [
+        "hook-strengthener",
+        "section-opener"
+      ],
+      "bad_skills": [
+        "causal-clarifier",
+        "ending-designer",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "cliche-breaker",
+        "hook-strengthener",
+        "angle-finder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5144,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_074",
+      "domain": "文学评论",
+      "query": "我想写鲁迅文章的锋利感，但不知道具体从哪里开始说。",
+      "expected_skills": [
+        "section-opener"
+      ],
+      "acceptable_skills": [
+        "angle-finder",
+        "hook-strengthener"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "proportion-balancer"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "section-opener",
+        "hook-strengthener"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 55700,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_075",
+      "domain": "职场",
+      "query": "汇报第一句话怎么写才不显得空泛？我不想一上来就说本季度工作很多。",
+      "expected_skills": [
+        "hook-strengthener"
+      ],
+      "acceptable_skills": [
+        "section-opener",
+        "purpose-clarifier"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "section-opener",
+        "hook-strengthener",
+        "tone-matcher"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7400,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_076",
+      "domain": "历史",
+      "query": "我这篇文章写到洋务运动失败原因，感觉还能继续，但不知道该在哪里停。",
+      "expected_skills": [
+        "focus-restorer"
+      ],
+      "acceptable_skills": [
+        "ending-designer",
+        "theme-retriever"
+      ],
+      "bad_skills": [
+        "blank-mind-starter",
+        "dialogue-naturalizer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "focus-restorer",
+        "ending-designer",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 14674,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_077",
+      "domain": "科技",
+      "query": "写5G应用时，我前面写得很细，后面6G展望只能一笔带过，节奏很乱。",
+      "expected_skills": [
+        "pacing-checker"
+      ],
+      "acceptable_skills": [
+        "proportion-balancer",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "character-unstuck",
+        "cliche-breaker"
+      ],
+      "actual_skills": [
+        "pacing-checker",
+        "proportion-balancer",
+        "transition-writer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7756,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_078",
+      "domain": "教育",
+      "query": "这篇家校合作文章，学校部分写了八百字，家长部分只有两句话。",
+      "expected_skills": [
+        "proportion-balancer"
+      ],
+      "acceptable_skills": [
+        "pacing-checker",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "ending-designer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "proportion-balancer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 21213,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_079",
+      "domain": "小说",
+      "query": "主角要不要原谅朋友？我不知道这个选择怎么安排才符合人物成长。",
+      "expected_skills": [
+        "character-unstuck"
+      ],
+      "acceptable_skills": [
+        "plot-unstuck",
+        "theme-retriever"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "overload-filter",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "character-unstuck"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4590,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_080",
+      "domain": "剧本",
+      "query": "这场母女和解戏的对白太直接了，像在总结主题。",
+      "expected_skills": [
+        "dialogue-naturalizer"
+      ],
+      "acceptable_skills": [
+        "tone-matcher",
+        "character-unstuck"
+      ],
+      "bad_skills": [
+        "material-sequencer",
+        "argument-builder",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "dialogue-naturalizer",
+        "character-unstuck",
+        "detail-generator"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3456,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_081",
+      "domain": "个人成长",
+      "query": "写自律这篇文章时，我越来越觉得自己没资格写，完全不想继续。",
+      "expected_skills": [
+        "motivation-reigniter"
+      ],
+      "acceptable_skills": [
+        "perfectionism-break",
+        "quality-assessor"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "material-sequencer"
+      ],
+      "actual_skills": [
+        "motivation-reigniter",
+        "perfectionism-break",
+        "purpose-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3689,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_082",
+      "domain": "文学",
+      "query": "我总觉得这段散文还可以更好，于是一直重写同一句话。",
+      "expected_skills": [
+        "perfectionism-break"
+      ],
+      "acceptable_skills": [
+        "quality-assessor",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "causal-clarifier",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "perfectionism-break",
+        "quality-assessor",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 2466,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_083",
+      "domain": "商业",
+      "query": "我写品牌年轻化，但整篇像广告软文，不知道具体问题在哪。",
+      "expected_skills": [
+        "quality-assessor"
+      ],
+      "acceptable_skills": [
+        "tone-matcher",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "dialogue-naturalizer",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "writing-diagnose"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 15640,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": false,
+        "acceptable_hit": false,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_084",
+      "domain": "社会观察",
+      "query": "我写公共空间，却突然想写城市记忆、商业开发和邻里关系，主线散了。",
+      "expected_skills": [
+        "multi-thread-organizer"
+      ],
+      "acceptable_skills": [
+        "theme-retriever",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "word-variety-expander",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "theme-retriever",
+        "multi-thread-organizer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 8975,
+      "metrics": {
+        "strict_top1": false,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_085",
+      "domain": "环保",
+      "query": "我有政策、数据、采访和个人体验四类材料，不知道怎么排成一篇环保报道。",
+      "expected_skills": [
+        "material-sequencer"
+      ],
+      "acceptable_skills": [
+        "multi-thread-organizer",
+        "overload-filter"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "section-opener",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "material-sequencer",
+        "multi-thread-organizer",
+        "proportion-balancer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5587,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_086",
+      "domain": "AI",
+      "query": "我不知道这段AI伦理文章到底是要劝大家谨慎使用，还是要讨论监管。",
+      "expected_skills": [
+        "purpose-clarifier"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "theme-retriever"
+      ],
+      "bad_skills": [
+        "sentence-diversifier",
+        "dialogue-naturalizer",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "purpose-clarifier",
+        "theme-retriever",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 3920,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_087",
+      "domain": "科技",
+      "query": "我这段写智能手表，前一句说它让人更健康，后一句又说它制造健康焦虑。",
+      "expected_skills": [
+        "contradiction-resolver"
+      ],
+      "acceptable_skills": [
+        "causal-clarifier",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "word-variety-expander",
+        "section-opener"
+      ],
+      "actual_skills": [
+        "contradiction-resolver",
+        "transition-writer",
+        "causal-clarifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4029,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_088",
+      "domain": "历史",
+      "query": "我说科举限制创新，但又说它促进社会流动，这两个观点怎么不打架？",
+      "expected_skills": [
+        "contradiction-resolver"
+      ],
+      "acceptable_skills": [
+        "logic-bridge",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "cliche-breaker"
+      ],
+      "actual_skills": [
+        "contradiction-resolver",
+        "causal-clarifier",
+        "logic-bridge"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6262,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_089",
+      "domain": "医学科普",
+      "query": "我总是写健康很重要、预防很重要，词太重复了。",
+      "expected_skills": [
+        "word-variety-expander"
+      ],
+      "acceptable_skills": [
+        "sentence-diversifier",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "plot-unstuck",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "word-variety-expander",
+        "sentence-diversifier",
+        "theme-retriever"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5332,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_090",
+      "domain": "社会观察",
+      "query": "这段每句话都以我们应该开头，读起来像倡议书模板。",
+      "expected_skills": [
+        "sentence-diversifier"
+      ],
+      "acceptable_skills": [
+        "voice-amplifier",
+        "cliche-breaker"
+      ],
+      "bad_skills": [
+        "causal-clarifier",
+        "dialogue-naturalizer",
+        "material-sequencer"
+      ],
+      "actual_skills": [
+        "sentence-diversifier",
+        "tone-matcher",
+        "voice-amplifier"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6200,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_091",
+      "domain": "科技",
+      "query": "我不知道自己这篇关于AIGC的文章具体卡在哪里，只觉得越写越乱。",
+      "expected_skills": [
+        "writing-diagnose"
+      ],
+      "acceptable_skills": [
+        "quality-assessor",
+        "theme-retriever"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "ending-designer",
+        "word-variety-expander"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "theme-retriever",
+        "multi-thread-organizer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4847,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_092",
+      "domain": "文学",
+      "query": "这篇小说片段不顺，但我说不出是人物、对话还是节奏的问题。",
+      "expected_skills": [
+        "writing-diagnose"
+      ],
+      "acceptable_skills": [
+        "quality-assessor",
+        "plot-unstuck"
+      ],
+      "bad_skills": [
+        "knowledge-gap-detector",
+        "argument-builder",
+        "overload-filter"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "quality-assessor",
+        "pacing-checker"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 7182,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_093",
+      "domain": "教育",
+      "query": "我这篇作文哪里都感觉有点问题，结构、语言、结尾都不太满意。",
+      "expected_skills": [
+        "writing-diagnose"
+      ],
+      "acceptable_skills": [
+        "quality-assessor",
+        "outline-expander"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "character-unstuck",
+        "knowledge-gap-detector"
+      ],
+      "actual_skills": [
+        "writing-diagnose",
+        "quality-assessor",
+        "ending-designer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4481,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_094",
+      "domain": "职场",
+      "query": "这份述职报告我想显得专业一点，但又怕太端着，不知道怎么调整。",
+      "expected_skills": [
+        "tone-matcher"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "causal-clarifier",
+        "material-sequencer"
+      ],
+      "actual_skills": [
+        "tone-matcher"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 24893,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_095",
+      "domain": "旅行",
+      "query": "我从海边日落写到当地小吃，中间转得很突兀。",
+      "expected_skills": [
+        "transition-writer"
+      ],
+      "acceptable_skills": [
+        "material-sequencer",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "argument-builder",
+        "knowledge-gap-detector",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "transition-writer",
+        "detail-generator",
+        "outline-expander"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 4937,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_096",
+      "domain": "历史",
+      "query": "我写甲午战争，只会写失败很惨，缺少具体场景和例子。",
+      "expected_skills": [
+        "detail-generator"
+      ],
+      "acceptable_skills": [
+        "knowledge-gap-detector",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "ending-designer",
+        "perfectionism-break"
+      ],
+      "actual_skills": [
+        "detail-generator",
+        "angle-finder",
+        "section-opener"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5324,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_097",
+      "domain": "商业",
+      "query": "我想写直播带货的风险，但不知道该从消费者、品牌还是平台监管切入。",
+      "expected_skills": [
+        "angle-finder"
+      ],
+      "acceptable_skills": [
+        "audience-definer",
+        "argument-builder"
+      ],
+      "bad_skills": [
+        "ending-designer",
+        "dialogue-naturalizer",
+        "sentence-diversifier"
+      ],
+      "actual_skills": [
+        "angle-finder",
+        "audience-definer",
+        "argument-builder"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 5747,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_098",
+      "domain": "AI",
+      "query": "我写提示词工程时总是在堆术语，不知道普通读者能不能看懂。",
+      "expected_skills": [
+        "audience-definer"
+      ],
+      "acceptable_skills": [
+        "knowledge-gap-detector",
+        "voice-amplifier"
+      ],
+      "bad_skills": [
+        "plot-unstuck",
+        "ending-designer",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "audience-definer",
+        "tone-matcher",
+        "section-opener"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 11768,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_099",
+      "domain": "社会观察",
+      "query": "我写老龄化社会，材料很多，但不知道哪些和养老服务这个主题最相关。",
+      "expected_skills": [
+        "overload-filter"
+      ],
+      "acceptable_skills": [
+        "theme-retriever",
+        "material-sequencer"
+      ],
+      "bad_skills": [
+        "dialogue-naturalizer",
+        "sentence-diversifier",
+        "ending-designer"
+      ],
+      "actual_skills": [
+        "overload-filter",
+        "theme-retriever",
+        "material-sequencer"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 6844,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    },
+    {
+      "id": "case_100",
+      "domain": "文学",
+      "query": "这篇散文最后我想留一点余味，不想把意思说得太满。",
+      "expected_skills": [
+        "ending-designer"
+      ],
+      "acceptable_skills": [
+        "tone-matcher",
+        "focus-restorer"
+      ],
+      "bad_skills": [
+        "outline-expander",
+        "knowledge-gap-detector",
+        "dialogue-naturalizer"
+      ],
+      "actual_skills": [
+        "ending-designer",
+        "tone-matcher"
+      ],
+      "status": "succeed",
+      "stop_reason": "tool_calls",
+      "latency_ms": 12568,
+      "metrics": {
+        "strict_top1": true,
+        "strict_top3": true,
+        "acceptable_hit": true,
+        "bad_skill_called": false
+      }
+    }
+  ]
+}

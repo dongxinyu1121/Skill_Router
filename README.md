@@ -58,7 +58,7 @@ progressive_disclosure/
 ```bash
 # 1. 配置环境变量
 cp .env.example .env
-# 编辑 .env：DEEPSEEK_API_KEY=xxx, DEEPSEEK_BASE_URL=xxx, DEEPSEEK_MODEL=xxx
+# 编辑 .env：OPENAI_API_KEY=xxx, OPENAI_BASE_URL=xxx, OPENAI_MODEL=xxx
 
 # 2. 运行
 python -m cli.agent

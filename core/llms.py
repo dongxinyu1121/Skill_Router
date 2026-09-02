@@ -37,6 +37,12 @@ class LLMClient(object):
 
         parsed_response = {}
         if response:
+            if not hasattr(response, "choices"):
+                return {
+                    "status": "failed",
+                    "error_message": "Unexpected LLM response type: %s. Raw response: %s"
+                    % (type(response).__name__, response),
+                }
             content = response.choices[0].message.content
             stop_reason = response.choices[0].finish_reason
             parsed_response["status"] = "succeed"
