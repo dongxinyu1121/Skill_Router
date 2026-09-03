@@ -59,6 +59,7 @@ progressive_disclosure/
 # 1. 配置环境变量
 cp .env.example .env
 # 编辑 .env：OPENAI_API_KEY=xxx, OPENAI_BASE_URL=xxx, OPENAI_MODEL=xxx
+# 程序启动时会优先使用 .env 中的值，覆盖当前终端已有的同名环境变量
 
 # 2. 运行
 python -m cli.agent

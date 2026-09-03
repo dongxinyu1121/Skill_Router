@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from core.prompts import base_system_prompt
 from skill_core import SkillRegistry

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 def load_llm_settings() -> Dict[str, str]:
     """从 .env 或系统环境变量读取 LLM 配置，缺必填项时直接报错。"""
-    load_dotenv()
+    load_dotenv(override=True)
 
     api_key = os.getenv("OPENAI_API_KEY")
     base_url = os.getenv("OPENAI_BASE_URL")
