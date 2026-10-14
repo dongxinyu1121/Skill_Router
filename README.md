@@ -17,33 +17,43 @@
 
 ```
 progressive_disclosure/
-├── cli/                      # 入口层
-├── core/                     # 配置、提示词、LLM 客户端
-├── demo/                     # 演示环境
-├── skill_core/               # Skill 数据与注册表
-├── toolkit/                  # 工具层：Skill / ReadFile / Bash
-├── runtime/                  # Agent 运行层：共享基类、loop、mock
+├── agent/                    # 完整的写作 Agent 实现
+│   ├── engine.py             # 主流程：模型 → 工具 → 最终回答
+│   ├── model.py              # 模型请求与响应解析
+│   ├── settings.py           # 环境配置读取
+│   ├── prompts.py            # 写作提示词与技能路由规则
+│   ├── skills.py             # Skill 数据结构、扫描和读取
+│   └── tools/                # 工具包与统一注册表
+│       ├── skill.py          # 加载 Skill 完整指令
+│       ├── read_file.py      # 读取 Skill 引用资源
+│       └── bash.py           # 执行系统命令
+├── cli/                      # 终端输入和结果显示
+├── scripts/                  # 技能路由评测入口
+├── tests/                    # 使用假模型的自动测试
+├── demo/                     # 示例 Skill 生成器
+├── data/                     # 评测数据和历史结果
 ├── .env.example              # 本地配置模板
 ├── .gitignore
 └── .claude/skills/           # Skill 目录
-    └── code-reviewer/
-        ├── SKILL.md
-        ├── references/
-        │   └── style-guide.md
-        └── scripts/
-            └── lint.sh
+    ├── outline-expander/
+    │   └── skill.md
+    ├── transition-writer/
+    │   └── skill.md
+    └── ...                    # 其他写作 Skill
 ```
-项目中skills只是演示示例。你可以尝试其它的skill。
+
+`.claude/skills/` 存放业务技能内容，`agent/skills.py` 存放读取和管理技能的代码，
+两者分别属于数据与实现，不是重复目录。
 
 ## 核心模块
 
 | 文件 | 职责 |
 |------|------|
-| `skill_core/` | `SkillRegistry` - 扫描 Skill 目录，管理元数据缓存和三级加载 |
-| `toolkit/` | `Tool` 基类；`SkillTool` 触发 Level 2；`ReadFileTool` 支持 Level 3 相对路径解析 |
-| `core/llms.py` | `LLMClient` - 封装 OpenAI 兼容 API 调用 |
-| `runtime/agent_loop.py` | `AgentLoop` - 主循环，处理用户输入、模型推理、工具调用 |
-| `cli/` | 各入口脚本：agent |
+| `agent/engine.py` | `WritingAgent`：公开 `run()` 和 `route()`，串起完整执行流程 |
+| `agent/skills.py` | `SkillRegistry`：扫描 Skill 目录并管理三级披露数据 |
+| `agent/tools/` | 三个工具及统一注册表，Skill 触发 Level 2，ReadFile 支持 Level 3 |
+| `agent/model.py` | `ModelClient`：封装 OpenAI 兼容接口并统一响应结构 |
+| `cli/agent.py` | 终端输入、退出处理、简洁日志与最终结果显示 |
 
 
 ## 启动方式
@@ -65,15 +75,30 @@ cp .env.example .env
 python -m cli.agent
 ```
 
+默认只显示技能、工具和最终回答。需要查看模型请求及工具参数时使用：
+
+```bash
+python -m cli.agent --verbose
+```
+
 启动后进入交互式会话，
-- 输入 `帮我审查一下刚才提交的代码` 会加载code-reviewer/SKILL.md。
+- 输入 `我写完了开头，但不知道下一段怎么展开` 会匹配 `outline-expander` 等写作 Skill。
 - 输入 `quit`/`exit` 退出。
 
 ## 创建 Skill
 
-运行 `cli/agent.py` 会自动创建 `.claude/skills/code-reviewer/SKILL.md` 以及相关资源。
+当前 Skill 位于 `.claude/skills/`。`demo/skill_env.py` 提供一个独立的
+`code-reviewer` 示例生成器，主程序不会自动运行或覆盖现有 Skill。
 
-可以通过 `demo/skill_env.py` 文件修改 Skill 的内容。
+## 测试与评测
+
+```bash
+# 使用固定响应的假模型测试主流程，不产生模型费用
+python -m unittest discover -s tests -v
+
+# 只校验路由评测数据，不调用模型
+python scripts/evaluate_skill_routing.py --validate-only
+```
 
 ## 依赖
 

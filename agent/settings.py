@@ -6,7 +6,7 @@ from typing import Dict
 from dotenv import load_dotenv
 
 
-def load_llm_settings() -> Dict[str, str]:
+def load_model_settings() -> Dict[str, str]:
     """读取密钥、接口地址和模型名称，返回客户端需要的配置字典。
 
     .env 中的配置会覆盖已有的同名环境变量。三项配置均为必填项，
@@ -32,7 +32,7 @@ def load_llm_settings() -> Dict[str, str]:
     ]
     if missing:
         raise RuntimeError(
-            "Missing required environment variables: " + ", ".join(missing)
+            "缺少模型配置环境变量: " + ", ".join(missing)
         )
 
     return {

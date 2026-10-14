@@ -16,18 +16,15 @@ from typing import Any, Dict, List, Set
 # 以脚本所在位置定位项目根目录，使默认数据路径不依赖终端工作目录。
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
-    # 直接运行脚本时补齐导入路径，才能导入同级的 core、runtime 等包。
+    # 直接运行脚本时补齐导入路径，才能导入项目根目录的 agent 包。
     sys.path.insert(0, str(ROOT))
 
-from core.llms import LLMClient
-from runtime.base import AgentBase
-from skill_core import SkillRegistry
+from agent import ModelClient, SkillRegistry, WritingAgent
 
 
-# 默认输入为人工标注，默认输出为本轮结果；工具名称统一转为小写后比较。
+# 默认输入为人工标注，默认输出为本轮结果。
 DEFAULT_INPUT = ROOT / "data" / "skill_routing_eval.json"
 DEFAULT_OUTPUT = ROOT / "data" / "skill_routing_eval_results.json"
-SKILL_TOOL_NAME = "skill"
 
 
 def load_cases(input_path: Path) -> List[Dict[str, Any]]:
@@ -74,24 +71,6 @@ def validate_cases(cases: List[Dict[str, Any]], registered_skills: Set[str]) -> 
 
     if unknown_skills:
         raise ValueError("unknown skills in eval data: %s" % sorted(unknown_skills))
-
-
-def extract_skill_commands(llm_response: Dict[str, Any]) -> List[str]:
-    """提取 Skill 工具的 command 参数，按模型给出的顺序返回技能名称。
-
-    忽略其他工具和缺少名称的调用，不去重；空响应得到空列表。
-    保留顺序用于计算首选及前三个选择是否命中。
-    """
-    commands: List[str] = []
-    for tool_call in llm_response.get("tools", []):
-        function_name = tool_call.get("function_name", "")
-        if function_name.lower() != SKILL_TOOL_NAME:
-            continue
-        arguments = tool_call.get("arguments", {})
-        command = arguments.get("command")
-        if command:
-            commands.append(command)
-    return commands
 
 
 def score_case(case: Dict[str, Any], actual_skills: List[str]) -> Dict[str, Any]:
@@ -166,25 +145,19 @@ def summarize(results: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 def evaluate_case(
     case: Dict[str, Any],
-    llm_client: LLMClient,
-    system_prompt: str,
-    tool_schema: List[Dict[str, Any]],
+    writing_agent: WritingAgent,
 ) -> Dict[str, Any]:
     """向模型提交单条样本，提取技能选择并返回标注、预测、耗时和指标。
 
     每个样本只发送一条用户消息，互不共享历史。模型提出工具调用后不执行，
-    也不请求第二轮回答。latency_ms 测量的是本次 inference 调用的耗时，
+    也不请求第二轮回答。latency_ms 测量的是本次 route 调用的耗时，
     不包含评分和文件保存；请求失败时额外保留错误消息。
     """
     started_at = time.time()
-    llm_response = llm_client.inference(
-        messages=[{"role": "user", "content": case["query"]}],
-        system_prompt=system_prompt,
-        tool_schema=tool_schema,
-    )
+    route_result = writing_agent.route(case["query"])
     latency_ms = int((time.time() - started_at) * 1000)
 
-    actual_skills = extract_skill_commands(llm_response)
+    actual_skills = route_result.selected_skills
     metrics = score_case(case, actual_skills)
     result = {
         "id": case["id"],
@@ -194,13 +167,13 @@ def evaluate_case(
         "acceptable_skills": case["acceptable_skills"],
         "bad_skills": case["bad_skills"],
         "actual_skills": actual_skills,
-        "status": llm_response["status"],
-        "stop_reason": llm_response.get("stop_reason"),
+        "status": route_result.status,
+        "stop_reason": route_result.stop_reason,
         "latency_ms": latency_ms,
         "metrics": metrics,
     }
-    if llm_response["status"] == "failed":
-        result["error_message"] = llm_response.get("error_message", "")
+    if route_result.status == "failed":
+        result["error_message"] = route_result.error or ""
     return result
 
 
@@ -235,13 +208,13 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     """组织完整评测流程：注册技能、校验样本、筛选范围、请求模型和保存。
 
-    提示词和初始工具描述复用 AgentBase，以便与交互入口保持一致。
+    评测通过 WritingAgent.route 复用与交互入口相同的提示词和工具描述。
     results 只保存当前执行选中的样本；输出文件会被当前结果覆盖，
     不自动合并先前执行的记录。
     """
     args = parse_args()
     registry = SkillRegistry(ROOT / ".claude" / "skills")
-    registered_skills = set(registry._skills)
+    registered_skills = registry.names
     cases = load_cases(args.input)
     validate_cases(cases, registered_skills)
 
@@ -255,16 +228,13 @@ def main() -> None:
         print("validate_only=passed")
         return
 
-    # 不启动交互循环，只借用公共提示词及初始 Skill、Bash 工具描述。
-    agent_base = AgentBase(registry)
-    llm_client = LLMClient()
-    system_prompt = agent_base._build_system_prompt()
-    tool_schema = agent_base._get_tool_schema()
+    # 评测只调用公开的 route 接口，不依赖 Agent 的私有提示词或工具方法。
+    writing_agent = WritingAgent(registry=registry, model=ModelClient())
     results: List[Dict[str, Any]] = []
 
     for index, case in enumerate(selected_cases, start=1):
         print("[%s/%s] %s" % (index, len(selected_cases), case["id"]))
-        result = evaluate_case(case, llm_client, system_prompt, tool_schema)
+        result = evaluate_case(case, writing_agent)
         results.append(result)
         print(
             "  expected=%s actual=%s top1=%s acceptable=%s bad=%s"
