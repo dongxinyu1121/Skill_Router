@@ -1,13 +1,23 @@
+"""生成早期的代码审查演示技能，展示指令、引用文档和脚本三层资源。
+
+当前写作智能体入口没有调用此函数；只有显式调用时才会写入示例文件。
+"""
+
 from pathlib import Path
 
 
 def setup_demo_environment():
-    """创建演示用的 code-reviewer Skill 文件结构。"""
+    """在当前工作目录下创建 code-reviewer 技能，并返回技能根目录。
+
+    生成 SKILL.md、references/style-guide.md 和 scripts/lint.sh。
+    目录已存在时可以复用，但同名文件会被覆盖；此函数用于演示三级加载，
+    其中的检查脚本仅打印预设消息，不会真正扫描项目代码。
+    """
     home = Path.cwd()
     skills_dir = home / ".claude" / "skills" / "code-reviewer"
     skills_dir.mkdir(parents=True, exist_ok=True)
 
-    # 写入 SKILL.md
+    # 第二级资源：头部元数据用于选择技能，正文告诉模型接下来如何调用资源。
     skill_md = skills_dir / "SKILL.md"
     skill_md.write_text("""---
 name: code-reviewer
@@ -27,7 +37,7 @@ version: 1.0
 - 检查脚本：`scripts/lint.sh`
   """, encoding="utf-8")
 
-    # 写入 reference 文件（Level 3 资源）
+    # 第三级资源：规范文档独立存放，只有执行技能需要它时才交给模型。
     refs_dir = skills_dir / "references"
     refs_dir.mkdir(exist_ok=True)
     (refs_dir / "style-guide.md").write_text("""# 编码规范
@@ -36,7 +46,7 @@ version: 1.0
 - 变量使用 camelCase
   """, encoding="utf-8")
 
-    # 写入脚本（Level 3 资源）
+    # 第三级资源：演示脚本由命令工具执行，下面的字符串是生成文件的实际内容。
     scripts_dir = skills_dir / "scripts"
     scripts_dir.mkdir(exist_ok=True)
     lint_script = scripts_dir / "lint.sh"
@@ -44,6 +54,8 @@ version: 1.0
   echo "ERROR: utils.py:45 - Line too long (120 > 100)"
   echo "WARNING: app.py:23 - Missing docstring"
   """, encoding="utf-8")
+    # 在支持这类权限位的平台上赋予脚本执行权限，便于演示时运行。
     lint_script.chmod(0o755)
 
+    # 返回整个技能根目录，调用者可将其交给 SkillRegistry 扫描。
     return home / ".claude" / "skills"

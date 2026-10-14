@@ -1,3 +1,10 @@
+"""写作场景的系统提示词模板，定义任务、技能选择规则和输出要求。
+
+AgentBase 会用 str.format 将技能名称和描述填入 skills_registry 占位符。
+模板中的双花括号用于保留 JSON 示例里的普通花括号，避免被误当成占位符。
+下方字符串是发送给模型的业务指令，不是 Python 文档字符串。
+"""
+
 base_system_prompt = """你是一个文章续写智能助手。你通过工具调用（Tool Use）与用户环境交互。
 
 {skills_registry}
